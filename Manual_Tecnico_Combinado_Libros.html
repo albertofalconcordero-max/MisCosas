@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Manual Técnico Combinado: MVC, JDBC y Swing (Libros)</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: #1f2933;
+    line-height: 1.55;
+    font-size: 11.5pt;
+    margin: 0;
+  }
+  h1 {
+    font-size: 22pt;
+    color: #1a365d;
+    border-bottom: 3px solid #2b6cb0;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: #4a5568;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 18px;
+  }
+  h2 {
+    font-size: 15pt;
+    color: #2b6cb0;
+    border-left: 5px solid #2b6cb0;
+    padding-left: 10px;
+    margin-top: 26px;
+    background: #ebf4ff;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-size: 12.5pt;
+    color: #1a365d;
+    margin-top: 18px;
+    margin-bottom: 6px;
+  }
+  h4 { font-size: 11.5pt; color: #2c5282; margin-bottom: 4px; }
+  p { margin: 6px 0; text-align: justify; }
+  ul, ol { margin: 6px 0 8px 22px; }
+  li { margin: 3px 0; }
+  code {
+    background: #edf2f7;
+    color: #c53030;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 10pt;
+  }
+  pre {
+    background: #1a202c;
+    color: #e2e8f0;
+    padding: 12px 14px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9.5pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    border-left: 4px solid #4299e1;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; }
+  .kw { color: #f6ad55; }
+  .str { color: #9ae6b4; }
+  .cmt { color: #718096; font-style: italic; }
+  .typ { color: #63b3ed; }
+
+  /* Resaltado para puntos importantes */
+  .highlight {
+    background: linear-gradient(120deg, #fef3c7 0%, #fde68a 100%);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+    color: #744210;
+  }
+  .key {
+    background: #fff;
+    border-left: 4px solid #ecc94b;
+    background-color: #fffbea;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .key strong { color: #744210; }
+
+  .danger {
+    background-color: #fff5f5;
+    border-left: 4px solid #fc8181;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .danger strong { color: #9b2c2c; }
+
+  .info {
+    background-color: #ebf8ff;
+    border-left: 4px solid #4299e1;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .info strong { color: #2c5282; }
+
+  .success {
+    background-color: #f0fff4;
+    border-left: 4px solid #68d391;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .success strong { color: #22543d; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 10.5pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background: #2b6cb0;
+    color: white;
+    padding: 8px 10px;
+    text-align: left;
+  }
+  td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f7fafc; }
+
+  .toc {
+    background: #f7fafc;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    padding: 14px 20px;
+    margin: 16px 0 22px 0;
+  }
+  .toc h3 { margin-top: 0; color: #2b6cb0; }
+  .toc ol { margin-left: 18px; }
+  .toc a { color: #2c5282; text-decoration: none; }
+
+  .term { font-weight: 700; color: #2c5282; }
+  .underline {
+    text-decoration: underline;
+    text-decoration-color: #ecc94b;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 2px;
+  }
+  .badge {
+    display: inline-block;
+    background: #2b6cb0;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 9pt;
+    margin-right: 4px;
+  }
+  .badge-warn { background: #d69e2e; }
+  .badge-danger { background: #c53030; }
+  .badge-ok { background: #2f855a; }
+
+  section { page-break-inside: avoid; }
+  hr {
+    border: none;
+    border-top: 2px dashed #cbd5e0;
+    margin: 24px 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>Manual Técnico Combinado</h1>
+<p class="subtitle">Arquitectura <strong>MVC</strong> · <strong>JDBC</strong> · <strong>Swing</strong> — Caso práctico: Gestión de <em>Libros</em></p>
+
+<div class="toc">
+  <h3>Índice</h3>
+  <ol>
+    <li>Introducción a la Arquitectura MVC</li>
+    <li>Gestión de Conexión a Base de Datos</li>
+    <li>Manejo de Excepciones (Personalizadas + Checked/Unchecked)</li>
+    <li>Modelo: Entidad <code>Libro</code> y <code>LibroDao</code> (CRUD)</li>
+    <li>Componentes JDBC y Manipulación de Datos</li>
+    <li>Vista (<code>frmLibros2</code>) y Lógica de Interfaz con Swing</li>
+    <li>Controlador (<code>LibroController</code>) y Manejo de Eventos</li>
+    <li>Funcionalidades Avanzadas de la JTable</li>
+    <li>Conclusión y Buenas Prácticas</li>
+  </ol>
+</div>
+
+<!-- ====================================================== -->
+<section>
+<h2>1. Introducción a la Arquitectura MVC</h2>
+
+<p>El sistema implementa el patrón <span class="highlight">Modelo–Vista–Controlador (MVC)</span> para garantizar la <span class="underline">escalabilidad</span> y <span class="underline">mantenibilidad</span> del software. Esta arquitectura permite un <span class="term">desacoplamiento efectivo</span> entre la lógica de negocio y la interfaz de usuario, facilitando que la persistencia se gestione de forma independiente a su representación.</p>
+
+<p>El objetivo arquitectónico es lograr <span class="highlight">máxima cohesión y mínimo acoplamiento</span>.</p>
+
+<h3>Clases clave del sistema</h3>
+<table>
+  <tr><th style="width:22%">Componente</th><th>Rol</th></tr>
+  <tr><td><strong>Libro</strong> (Entidad / POJO)</td><td>Representación del dominio de datos. Encapsula atributos (id, ISBN, título, autor, editorial, estado de préstamo, fechas). Es el contenedor que fluye entre capas.</td></tr>
+  <tr><td><strong>LibroDao</strong> (DAO)</td><td><em>Data Access Object</em>. Encapsula <span class="underline">todas las operaciones CRUD</span> y las sentencias SQL mediante JDBC, aislando el acceso a datos.</td></tr>
+  <tr><td><strong>LibroController</strong></td><td>Orquestador y mediador. Procesa solicitudes de la vista, registra escuchadores de eventos y coordina las reglas de negocio con el DAO.</td></tr>
+  <tr><td><strong>frmLibros2</strong> (Vista)</td><td>Interfaz Swing. <span class="highlight">Solo renderiza información y captura eventos</span>: no debe contener lógica de procesamiento de datos.</td></tr>
+  <tr><td><strong>Main</strong></td><td>Punto de entrada (<em>bootstrap</em>). Instancia componentes críticos, gestiona la conexión global e inicia el ciclo de vida de la aplicación.</td></tr>
+</table>
+</section>
+
+<!-- ====================================================== -->
+<section>
+<h2>2. Gestión de Conexión a Base de Datos</h2>
+
+<p>La comunicación con el motor de base de datos reside en la clase <code>DbConnection</code> (también vista como <code>Conexion</code>). El diseño centraliza la configuración técnica y el ciclo de vida de los objetos <code>Connection</code>.</p>
+
+<div class="key">
+<strong>Patrón Singleton:</strong> se utiliza para <span class="underline">centralizar el acceso</span> y <span class="underline">optimizar el pool de conexiones</span>, asegurando que no se creen instancias innecesarias.
+</div>
+
+<table>
+  <tr><th>Atributo / Método</th><th>Propósito técnico</th></tr>
+  <tr><td><code>db</code></td><td>Instancia global de <code>DbConnection</code> que centraliza parámetros de red y credenciales.</td></tr>
+  <tr><td><code>cn</code></td><td>Objeto <code>Connection</code> que mantiene la sesión activa con el servidor.</td></tr>
+  <tr><td><code>getConnection()</code></td><td>Método que retorna la instancia de conexión, para ser inyectada en controladores y DAOs.</td></tr>
+</table>
+
+<div class="info">
+<strong>Nota técnica — URL JDBC:</strong> la URL debe seguir estrictamente el formato
+<code>jdbc:mysql://localhost:3306/nombre_bd</code>. <span class="underline">Verifica los dos puntos tras el protocolo y el puerto</span>; un error de sintaxis aquí impide la conexión.
+</div>
+
+<h3>Ejemplo de implementación con Singleton</h3>
+<pre><code><span class="kw">import</span> java.sql.Connection;
+<span class="kw">import</span> java.sql.DriverManager;
+<span class="kw">import</span> java.sql.SQLException;
+
+<span class="kw">public class</span> DbConnection {
+    <span class="kw">private static</span> Connection cn = <span class="kw">null</span>;
+    <span class="kw">private final</span> String base = <span class="str">"biblioteca"</span>;
+    <span class="kw">private final</span> String url  = <span class="str">"jdbc:mysql://localhost:3306/"</span> + base;
+    <span class="kw">private final</span> String user = <span class="str">"root"</span>;
+    <span class="kw">private final</span> String pass = <span class="str">"password"</span>;
+
+    <span class="kw">public</span> Connection getConnection() {
+        <span class="kw">try</span> {
+            <span class="cmt">// Verificamos si la conexión es nula o cerrada por timeout</span>
+            <span class="kw">if</span> (cn == <span class="kw">null</span> || cn.isClosed()) {
+                Class.forName(<span class="str">"com.mysql.cj.jdbc.Driver"</span>);
+                cn = DriverManager.getConnection(url, user, pass);
+            }
+        } <span class="kw">catch</span> (ClassNotFoundException | SQLException e) {
+            System.err.println(<span class="str">"Error Crítico de Conexión: "</span> + e.getMessage());
+        }
+        <span class="kw">return</span> cn;
+    }
+}</code></pre>
+
+<div class="success">
+<strong>Eficiencia:</strong> las conexiones deben <span class="underline">abrirse solo cuando sea estrictamente necesario</span>. La verificación <code>cn == null || cn.isClosed()</code> evita abrir conexiones redundantes y reaprovecha la sesión vigente.
+</div>
+</section>
+
+<!-- ====================================================== -->
+<section>
+<h2>3. Manejo de Excepciones</h2>
+
+<h3>3.1 Clasificación: Checked vs. Unchecked</h3>
+<table>
+  <tr><th>Característica</th><th>Checked Exceptions</th><th>Unchecked Exceptions</th></tr>
+  <tr><td>Herencia</td><td><code>Exception</code></td><td><code>RuntimeException</code></td></tr>
+  <tr><td>Verificación</td><td><span class="highlight">Obligatoria</span> por el compilador</td><td>En tiempo de ejecución</td></tr>
+  <tr><td>Origen</td><td>Factores externos (red, E/S, SQL)</td><td>Errores de lógica del programador</td></tr>
+  <tr><td>Ejemplos</td><td><code>SQLException</code>, <code>IOException</code></td><td><code>NullPointerException</code>, <code>ArithmeticException</code></td></tr>
+</table>
+
+<h3>3.2 Excepciones personalizadas del sistema</h3>
+<p>La robustez se fundamenta en <span class="highlight">validación preventiva</span> antes de cualquier operación de escritura. Las excepciones personalizadas segmentan errores de infraestructura de errores de lógica de negocio:</p>
+<ul>
+  <li><span class="term">CamposVaciosException</span>: se dispara durante la captura de datos si campos obligatorios carecen de información. Evita inconsistencias en la capa de datos.</li>
+  <li><span class="term">IsbnException</span>: especializada en la integridad referencial y de formato del identificador único. Asegura que el ISBN cumpla los estándares definidos.</li>
+</ul>
+
+<h3>3.3 <code>throw</code> vs. <code>throws</code></h3>
+<ul>
+  <li><strong><code>throws</code></strong>: declaración en la <span class="underline">firma del método</span>; indica que puede propagar una excepción al llamante.</li>
+  <li><strong><code>throw</code></strong>: palabra reservada para <span class="underline">disparar</span> (lanzar) una instancia concreta de una excepción.</li>
+</ul>
+
+<pre><code><span class="kw">public void</span> validarIsbn(String isbn) <span class="kw">throws</span> IsbnException { <span class="cmt">// declaración</span>
+    <span class="kw">if</span> (isbn == <span class="kw">null</span> || isbn.isBlank()) {
+        <span class="kw">throw new</span> IsbnException(<span class="str">"El ISBN no puede estar vacío"</span>); <span class="cmt">// lanzamiento</span>
+    }
+}</code></pre>
+
+<h3>3.4 Control de flujo y recursos</h3>
+<div class="key">
+<strong>try-with-resources (Java 7+):</strong> automatiza el cierre de objetos <code>AutoCloseable</code> (<code>Connection</code>, <code>PreparedStatement</code>, <code>ResultSet</code>). <span class="underline">Previene fugas de memoria</span> (memory leaks) y reemplaza al clásico <code>try-catch-finally</code>.
+</div>
+
+<h3>3.5 Propagación hacia la interfaz</h3>
+<pre><code><span class="kw">try</span> {
+    cargarDatos(sql); <span class="cmt">// puede lanzar SQLException o excepciones de negocio</span>
+} <span class="kw">catch</span> (SQLException e) {
+    <span class="cmt">// Error crítico de infraestructura o sintaxis SQL</span>
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(<span class="kw">null</span>, <span class="str">"Error en la base de datos: "</span> + e.getMessage());
+} <span class="kw">catch</span> (IsbnException | CamposVaciosException e) {
+    <span class="cmt">// Errores de validación controlados</span>
+    JOptionPane.showMessageDialog(<span class="kw">null</span>, e.getMessage());
+}</code></pre>
+
+<div class="danger">
+<strong>Prohibido silenciar excepciones:</strong> un bloque <code>catch</code> vacío es <span class="underline">deuda técnica peligrosa</span>. Usa siempre <code>e.printStackTrace()</code> o logs descriptivos. Capturar <code>SQLException</code> es <span class="highlight">imperativo</span> para diagnosticar fallos sin comprometer la estabilidad del hilo principal.
+</div>
+</section>
+
+<!-- ====================================================== -->
+<section>
+<h2>4. Modelo: Entidad <code>Libro</code> y <code>LibroDao</code> (CRUD)</h2>
+
+<h3>4.1 Entidad <code>Libro</code> (POJO)</h3>
+<p>Refleja fielmente la estructura de la tabla <code>libro</code>:</p>
+
+<pre><code><span class="kw">public class</span> Libro {
+    <span class="kw">private int</span> idLibro;
+    <span class="kw">private</span> String isbn;
+    <span class="kw">private</span> String titulo;
+    <span class="kw">private</span> String autor;
+    <span class="kw">private</span> String editorial;
+    <span class="kw">private boolean</span> prestado;
+    <span class="kw">private</span> java.sql.Date fechaPrestamo;
+    <span class="kw">private</span> java.sql.Date fechaDevolucion;
+
+    <span class="kw">public</span> Libro() {}
+
+    <span class="cmt">// Getters y Setters</span>
+    <span class="kw">public int</span> getIdLibro() { <span class="kw">return</span> idLibro; }
+    <span class="kw">public void</span> setIdLibro(<span class="kw">int</span> idLibro) { <span class="kw">this</span>.idLibro = idLibro; }
+    <span class="kw">public</span> String getIsbn() { <span class="kw">return</span> isbn; }
+    <span class="kw">public void</span> setIsbn(String isbn) { <span class="kw">this</span>.isbn = isbn; }
+    <span class="kw">public</span> String getTitulo() { <span class="kw">return</span> titulo; }
+    <span class="kw">public void</span> setTitulo(String titulo) { <span class="kw">this</span>.titulo = titulo; }
+    <span class="kw">public</span> String getAutor() { <span class="kw">return</span> autor; }
+    <span class="kw">public void</span> setAutor(String autor) { <span class="kw">this</span>.autor = autor; }
+    <span class="kw">public</span> String getEditorial() { <span class="kw">return</span> editorial; }
+    <span class="kw">public void</span> setEditorial(String e) { <span class="kw">this</span>.editorial = e; }
+    <span class="kw">public boolean</span> isPrestado() { <span class="kw">return</span> prestado; }
+    <span class="kw">public void</span> setPrestado(<span class="kw">boolean</span> p) { <span class="kw">this</span>.prestado = p; }
+    <span class="kw">public</span> java.sql.Date getFechaPrestamo() { <span class="kw">return</span> fechaPrestamo; }
+    <span class="kw">public void</span> setFechaPrestamo(java.sql.Date f) { <span class="kw">this</span>.fechaPrestamo = f; }
+    <span class="kw">public</span> java.sql.Date getFechaDevolucion() { <span class="kw">return</span> fechaDevolucion; }
+    <span class="kw">public void</span> setFechaDevolucion(java.sql.Date f) { <span class="kw">this</span>.fechaDevolucion = f; }
+}</code></pre>
+
+<h3>4.2 <code>LibroDao</code> — CRUD con <code>try-with-resources</code></h3>
+<div class="info">
+<strong>Buena práctica:</strong> usar <code>try-with-resources</code> garantiza el cierre automático de <code>Connection</code>, <code>PreparedStatement</code> y <code>ResultSet</code>. Es la forma <span class="underline">estándar moderna</span> de evitar fugas.
+</div>
+
+<pre><code><span class="kw">import</span> java.sql.*;
+
+<span class="kw">public class</span> LibroDao <span class="kw">extends</span> DbConnection {
+
+    <span class="kw">public boolean</span> registrar(Libro l) {
+        String sql = <span class="str">"INSERT INTO libro (isbn, titulo, autor, editorial, prestado) VALUES (?,?,?,?,?)"</span>;
+        <span class="kw">try</span> (Connection cn = getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, l.getIsbn());
+            ps.setString(2, l.getTitulo());
+            ps.setString(3, l.getAutor());
+            ps.setString(4, l.getEditorial());
+            ps.setBoolean(5, l.isPrestado());
+            ps.execute();
+            <span class="kw">return true</span>;
+        } <span class="kw">catch</span> (SQLException e) {
+            System.err.println(<span class="str">"Error en Registro: "</span> + e);
+            <span class="kw">return false</span>;
+        }
+    }
+
+    <span class="kw">public boolean</span> modificar(Libro l) {
+        String sql = <span class="str">"UPDATE libro SET isbn=?, titulo=?, autor=?, editorial=?, prestado=? WHERE idLibro=?"</span>;
+        <span class="kw">try</span> (Connection cn = getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, l.getIsbn());
+            ps.setString(2, l.getTitulo());
+            ps.setString(3, l.getAutor());
+            ps.setString(4, l.getEditorial());
+            ps.setBoolean(5, l.isPrestado());
+            ps.setInt(6, l.getIdLibro());
+            ps.execute();
+            <span class="kw">return true</span>;
+        } <span class="kw">catch</span> (SQLException e) {
+            System.err.println(<span class="str">"Error en Modificación: "</span> + e);
+            <span class="kw">return false</span>;
+        }
+    }
+
+    <span class="kw">public boolean</span> eliminar(Libro l) {
+        String sql = <span class="str">"DELETE FROM libro WHERE idLibro=?"</span>;
+        <span class="kw">try</span> (Connection cn = getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setInt(1, l.getIdLibro());
+            ps.execute();
+            <span class="kw">return true</span>;
+        } <span class="kw">catch</span> (SQLException e) {
+            System.err.println(<span class="str">"Error en Eliminación: "</span> + e);
+            <span class="kw">return false</span>;
+        }
+    }
+
+    <span class="kw">public boolean</span> buscar(Libro l) {
+        String sql = <span class="str">"SELECT * FROM libro WHERE isbn=?"</span>;
+        <span class="kw">try</span> (Connection cn = getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, l.getIsbn());
+            <span class="kw">try</span> (ResultSet rs = ps.executeQuery()) {
+                <span class="kw">if</span> (rs.next()) {
+                    l.setIdLibro(rs.getInt(<span class="str">"idLibro"</span>));
+                    l.setIsbn(rs.getString(<span class="str">"isbn"</span>));
+                    l.setTitulo(rs.getString(<span class="str">"titulo"</span>));
+                    l.setAutor(rs.getString(<span class="str">"autor"</span>));
+                    l.setEditorial(rs.getString(<span class="str">"editorial"</span>));
+                    l.setPrestado(rs.getBoolean(<span class="str">"prestado"</span>));
+                    <span class="kw">return true</span>;
+                }
+                <span class="kw">return false</span>;
+            }
+        } <span class="kw">catch</span> (SQLException e) {
+            System.err.println(<span class="str">"Error en Búsqueda: "</span> + e);
+            <span class="kw">return false</span>;
+        }
+    }
+}</code></pre>
+</section>
+
+<!-- ====================================================== -->
+<section>
+<h2>5. Componentes JDBC y Manipulación de Datos</h2>
+
+<p>La manipulación de datos se realiza con la API JDBC, transformando filas de una tabla relacional en objetos Java.</p>
+
+<table>
+  <tr><th>Componente</th><th>Función</th></tr>
+  <tr><td><code>PreparedStatement</code></td><td>Componente <span class="highlight">preferido</span> para ejecutar SQL. Permite la <span class="underline">pre-compilación</span> de la consulta y protege contra <span class="underline">Inyección SQL</span> mediante parametrización (<code>?</code>).</td></tr>
+  <tr><td><code>ResultSet</code></td><td>Cursor / iterador sobre los resultados. Provee acceso a los datos crudos que luego se mapean a la entidad <code>Libro</code>.</td></tr>
+</table>
+
+<h3>5.1 Comparativa de métodos</h3>
+<table>
+  <tr><th>Método</th><th>Uso</th><th>Devuelve</th></tr>
+  <tr><td><code>executeQuery()</code></td><td>Sentencias <code>SELECT</code></td><td>Un <code>ResultSet</code> con los registros hallados</td></tr>
+  <tr><td><code>executeUpdate()</code></td><td><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code></td><td>Un <code>int</code> con la cuenta de filas afectadas</td></tr>
+</table>
+
+<h3>5.2 Pasos de ejecución y <em>Data Mapping</em></h3>
+<ol>
+  <li>Apertura de conexión mediante <code>getConnection()</code>.</li>
+  <li>Instanciación del <code>PreparedStatement</code> con la cadena SQL.</li>
+  <li>Ejecución de la sentencia y obtención del <code>ResultSet</code>.</li>
+  <li><span class="term">Data Mapping</span>: recorrer el <code>ResultSet</code> y asignar cada columna a un atributo de una nueva instancia de <code>Libro</code>.</li>
+  <li>Adición del objeto <code>Libro</code> a una <code>List&lt;Libro&gt;</code>.</li>
+  <li>Cierre de recursos (asegurando el retorno de la lista al controlador).</li>
+</ol>
+</section>
+
+<!-- ====================================================== -->
+<section>
+<h2>6. Vista <code>frmLibros2</code> y Lógica de Interfaz con Swing</h2>
+
+<p>La clase <code>frmLibros2</code> representa la <span class="term">capa de presentación</span>, construida sobre Swing. Su complejidad radica en la <span class="highlight">sincronización entre el estado interno de los datos y los componentes visuales</span>.</p>
+
+<h3>6.1 Componentes clave</h3>
+<ul>
+  <li><code>JTextField</code> — entrada de texto (ISBN, título, autor, editorial...).</li>
+  <li><code>JButton</code> — disparadores de acción (Guardar, Modificar, Eliminar, Navegación).</li>
+  <li><code>JTable</code> — visualización de colecciones de libros.</li>
+  <li><code>JCheckBox</code> — estado <code>prestado</code>.</li>
+  <li><code>JComboBox</code> + <code>JTextField</code> — filtrado dinámico de la consulta SQL.</li>
+</ul>
+
+<div class="info">
+<strong>Modificadores de acceso:</strong> los componentes del <code>JFrame</code> se declaran <code>public</code> para que el Controlador pueda asignar <code>ActionListener</code> y leer estados con <code>getText()</code> directamente.
+</div>
+
+<h3>6.2 Gestión de datos en memoria y ciclo de vida</h3>
+<p>El método <code>cargarDatos(String sql)</code> instancia el <code>LibroController</code> y la <code>DbConnection</code> para obtener la <code>List&lt;Libro&gt;</code>; inmediatamente después asigna <code>lc=null; db=null;</code> para que el <span class="term">Garbage Collector</span> libere recursos de red y lógica una vez los libros están en memoria local.</p>
+
+<h3>6.3 Sincronización de la interfaz</h3>
+<ul>
+  <li><span class="term">DefaultTableModel (dtm)</span>: modelo de tabla que actúa como <span class="underline">puente entre la lista de objetos y el <code>JTable</code></span>. En <code>cargarGrid</code> transforma la lista en estructura matricial.</li>
+  <li><span class="term">Navegación mediante puntero</span>: índice que gestiona el estado de navegación. Permite desplazarse por la lista <span class="highlight">sin nuevas peticiones a la BD</span> (caching en cliente).</li>
+</ul>
+
+<h3>6.4 Componentes de eventos y navegación</h3>
+<p>Los escuchadores de <code>JButton</code> gestionan navegación y edición protegiendo siempre las <span class="term">condiciones de borde</span>:</p>
+<ul>
+  <li><strong>Primero / Atrás / Adelante / Último:</strong> el método <code>mostrarLibros(int puntero)</code> actualiza <code>textIdLibros</code>, <code>textIsbn</code>, <code>textTitulo</code>, <code>textAutor</code>, <code>textEditorial</code>, <code>textFechaPrestamo</code> y el <code>JCheckBox chckbxPrestado</code>.</li>
+  <li><strong>Gestión:</strong> Nuevo, Guardar, Borrar — controlan el estado de edición y la persistencia final vía controlador.</li>
+  <li><strong>Filtrado:</strong> <code>comboCampo</code> + <code>textFiltrar</code> + <code>btnFiltrar</code> construyen dinámicamente la cláusula SQL que se envía a <code>cargarDatos</code>.</li>
+</ul>
+
+<div class="danger">
+<strong>Seguridad de índices:</strong> los botones de navegación <span class="underline">deben validar</span> que <code>puntero ≥ 0</code> y <code>puntero ≤ libros.size() - 1</code> para evitar <code>IndexOutOfBoundsException</code>.
+</div>
+
+<div class="info">
+<strong>Nota técnica — Nulidad:</strong> al mostrar fechas, validar siempre antes de pintar:
+<code>if (libro.getFechaDevolucion() != null) { ... }</code>. Lo mismo aplica a <code>booleanos</code> del <code>JCheckBox</code>.
+</div>
+</section>
+
+<!-- ====================================================== -->
+<section>
+<h2>7. Controlador <code>LibroController</code> y Manejo de Eventos</h2>
+
+<p>El <code>LibroController</code> es el <span class="term">cerebro</span> que reacciona a las interacciones del usuario, registra los escuchadores y coordina vista ↔ modelo.</p>
+
+<pre><code><span class="kw">import</span> java.awt.event.*;
+<span class="kw">import</span> javax.swing.JOptionPane;
+
+<span class="kw">public class</span> LibroController <span class="kw">implements</span> ActionListener {
+    <span class="kw">private</span> Libro modelo;
+    <span class="kw">private</span> LibroDao dao;
+    <span class="kw">private</span> frmLibros2 vista;
+
+    <span class="kw">public</span> LibroController(Libro modelo, LibroDao dao, frmLibros2 vista) {
+        <span class="kw">this</span>.modelo = modelo;
+        <span class="kw">this</span>.dao = dao;
+        <span class="kw">this</span>.vista = vista;
+
+        <span class="cmt">// Registro de escuchadores</span>
+        <span class="kw">this</span>.vista.btnGuardar.addActionListener(<span class="kw">this</span>);
+        <span class="kw">this</span>.vista.btnModificar.addActionListener(<span class="kw">this</span>);
+        <span class="kw">this</span>.vista.btnEliminar.addActionListener(<span class="kw">this</span>);
+        <span class="kw">this</span>.vista.btnBuscar.addActionListener(<span class="kw">this</span>);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> actionPerformed(ActionEvent e) {
+        <span class="kw">if</span> (e.getSource() == vista.btnGuardar) {
+            modelo.setIsbn(vista.textIsbn.getText());
+            modelo.setTitulo(vista.textTitulo.getText());
+            modelo.setAutor(vista.textAutor.getText());
+            modelo.setEditorial(vista.textEditorial.getText());
+            modelo.setPrestado(vista.chckbxPrestado.isSelected());
+
+            <span class="kw">if</span> (dao.registrar(modelo)) {
+                JOptionPane.showMessageDialog(<span class="kw">null</span>, <span class="str">"Operación Exitosa"</span>);
+            }
+        }
+        <span class="cmt">// Lógica similar para modificar, eliminar y buscar...</span>
+    }
+}</code></pre>
+</section>
+
+<!-- ====================================================== -->
+<section>
+<h2>8. Funcionalidades Avanzadas de la JTable</h2>
+
+<h3>8.1 Búsqueda segura en tiempo real (<code>KeyReleased</code>)</h3>
+<p>Para búsqueda dinámica mientras el usuario escribe se usa el evento <code>KeyReleased</code>. Es <span class="highlight">imperativo</span> usar <code>PreparedStatement</code> con <code>LIKE</code> para evitar <span class="underline">Inyección SQL</span>.</p>
+
+<pre><code><span class="cmt">// En la capa DAO — búsqueda segura</span>
+<span class="kw">public void</span> buscarTiempoReal(String texto) {
+    String sql = <span class="str">"SELECT * FROM libro WHERE titulo LIKE ?"</span>;
+    <span class="kw">try</span> (Connection cn = getConnection();
+         PreparedStatement ps = cn.prepareStatement(sql)) {
+        ps.setString(1, <span class="str">"%"</span> + texto + <span class="str">"%"</span>); <span class="cmt">// parámetro seguro</span>
+        ResultSet rs = ps.executeQuery();
+        <span class="cmt">// Cargar el DefaultTableModel con los resultados...</span>
+    } <span class="kw">catch</span> (SQLException e) { <span class="cmt">/* Manejo de error */</span> }
+}</code></pre>
+
+<div class="danger">
+<strong>Nunca concatenar strings en SQL:</strong> usar siempre el placeholder <code>?</code> y <code>setString()</code>. La concatenación directa abre la puerta a inyección SQL.
+</div>
+
+<h3>8.2 Selección de fila y mapeo a campos</h3>
+<p>Cuando el usuario selecciona una fila para editar, el flujo técnico es:</p>
+<ol>
+  <li>Obtener el índice con <code>getSelectedRow()</code>.</li>
+  <li>Validar con <code>if (fila &lt; 0)</code>.</li>
+  <li>Extraer valores por índice de columna (0 = ID, 1 = ISBN, 2 = Título...).</li>
+</ol>
+
+<pre><code><span class="kw">int</span> fila = vista.tablaLibros.getSelectedRow();
+<span class="kw">if</span> (fila &lt; 0) {
+    JOptionPane.showMessageDialog(<span class="kw">null</span>, <span class="str">"Debe seleccionar un registro de la tabla."</span>);
+} <span class="kw">else</span> {
+    vista.textIdLibros.setText(vista.tablaLibros.getValueAt(fila, 0).toString());
+    vista.textIsbn.setText(vista.tablaLibros.getValueAt(fila, 1).toString());
+    vista.textTitulo.setText(vista.tablaLibros.getValueAt(fila, 2).toString());
+    vista.textAutor.setText(vista.tablaLibros.getValueAt(fila, 3).toString());
+    vista.textEditorial.setText(vista.tablaLibros.getValueAt(fila, 4).toString());
+}</code></pre>
+</section>
+
+<!-- ====================================================== -->
+<section>
+<h2>9. Conclusión y Buenas Prácticas</h2>
+
+<p>La arquitectura demuestra una <span class="highlight">separación clara de responsabilidades</span>: el DAO maneja datos, el Controlador orquesta, y la Vista se limita a UX y estado local de navegación.</p>
+
+<h3>Buenas prácticas a memorizar</h3>
+<table>
+  <tr><th>Principio</th><th>Aplicación</th></tr>
+  <tr><td><span class="badge badge-ok">SEGURIDAD</span> Sentencias preparadas</td><td>Usa <code>PreparedStatement</code> sistemáticamente. <span class="underline">Nunca concatenes strings en SQL</span>.</td></tr>
+  <tr><td><span class="badge badge-ok">RECURSOS</span> try-with-resources</td><td>No es opcional: previene fugas de conexiones que pueden colapsar el servidor de BD.</td></tr>
+  <tr><td><span class="badge badge-ok">VALIDACIÓN</span> En capas</td><td>Excepciones personalizadas (<code>IsbnException</code>, <code>CamposVaciosException</code>) detienen datos erróneos antes del motor de BD.</td></tr>
+  <tr><td><span class="badge badge-ok">UI</span> Validar selección</td><td>Antes de modificar o borrar, verifica que hay fila seleccionada en la <code>JTable</code> (<code>fila &lt; 0</code>).</td></tr>
+  <tr><td><span class="badge badge-ok">NULIDAD</span> Campos sensibles</td><td>Validar fechas y booleanos antes de renderizar en la interfaz.</td></tr>
+  <tr><td><span class="badge badge-ok">MEMORIA</span> Cierre programático</td><td>Liberar conexiones y controladores tras la carga de datos (<code>lc = null; db = null;</code>).</td></tr>
+  <tr><td><span class="badge badge-danger">PROHIBIDO</span> Silenciar excepciones</td><td>Un <code>catch</code> vacío es deuda técnica. Siempre log o <code>printStackTrace()</code>.</td></tr>
+</table>
+
+<div class="key">
+<strong>Resumen mental para el examen:</strong>
+<ul>
+  <li><strong>MVC</strong> = 3 capas desacopladas (Modelo / Vista / Controlador) + DAO.</li>
+  <li><strong>JDBC</strong> = <code>Connection</code> → <code>PreparedStatement</code> → <code>ResultSet</code> → mapeo a POJO.</li>
+  <li><strong>Swing</strong> = la vista solo renderiza; el controlador escucha eventos.</li>
+  <li><strong>Singleton + try-with-resources</strong> = pilares de la gestión de recursos.</li>
+  <li><strong>Excepciones personalizadas</strong> = validación temprana antes de tocar la BD.</li>
+</ul>
+</div>
+
+</section>
+
+</body>
+</html>
