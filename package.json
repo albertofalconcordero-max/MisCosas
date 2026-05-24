@@ -1,0 +1,13 @@
+{
+  "name": "baraja-culo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "El Culo - juego de cartas multijugador en red local con baraja espanola",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "socket.io": "^4.7.5"
+  }
+}
